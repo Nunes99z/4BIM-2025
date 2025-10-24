@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function Formulario() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Formulário de Informações</h1>
+
+      <div className="campos">
+        <label>Nome</label>
+        <input placeholder="Digite seu nome" />
+        
+        <label>Idade</label>
+        <input placeholder="Digite sua idade" />
+
+        <label>Telefone</label>
+        <input placeholder="Digite seu telefone" />
+
+        <label>Instagram</label>
+        <input placeholder="Digite seu @ do Instagram" />
+
+        <label>GitHub</label>
+        <input placeholder="Digite seu GitHub" />
+
+        <label>Pensamento</label>
+        <input placeholder="Um pensamento seu" />
+
+        <label>Probleminha</label>
+        <input placeholder="Tem algum probleminha?" />
+
+        <label>Última série assistida</label>
+        <input placeholder="Qual foi a última série?" />
+
+        <label>Último jogo jogado</label>
+        <input placeholder="Qual foi o último jogo?" />
+
+        <label>Música favorita</label>
+        <input placeholder="Qual música você gosta?" />
+
+        <label>Gênero musical</label>
+        <input placeholder="Seu gênero musical favorito" />
+
+        <label>Habilidade especial</label>
+        <input placeholder="Sua habilidade especial" />
+
+        <label>Poder especial</label>
+        <input placeholder="Seu poder especial" />
+
+        <label>Time que torce</label>
+        <input placeholder="Qual seu time?" />
+
+        <button>Enviar informações</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default Formulario;
