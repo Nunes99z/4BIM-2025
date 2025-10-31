@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
+function App() {
+  const [email, setEmail] = useState('')
+  const [senha, setSenha] = useState('')
+  const [idade, setIdade] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [instagram, setInstagram] = useState('')
+}
+const mudançaDeEmail = (e) => {
+  setEmail(e.target.value)
+}
+const mudançaDeSenha = (e) => {
+  setSenha(e.target.value)
+}
+const enviarForms = (e) => {
+  e.preventDefault()
+  console.log(`Email: ${email}, Senha: ${senha}`)
+}
 function Formulario() {
   return (
     <div className="container">
       <h1>Formulário de Informações</h1>
-
       <div className="campos">
+      <form onSubmit={enviarForms}>
+        <label>Email</label>
+        <input placeholder="Digite seu email" />
+
         <label>Nome</label>
-        <input placeholder="Digite seu nome" />
-        
+        <input
+          id='email'
+          type='email'
+          name='email'
+          value={email}
+          onChange={(e) => mudançaDeEmail(e)}
+          placeholder="Digite seu nome" />
+
         <label>Idade</label>
         <input placeholder="Digite sua idade" />
 
@@ -50,6 +76,7 @@ function Formulario() {
         <input placeholder="Qual seu time?" />
 
         <button>Enviar informações</button>
+        </form>
       </div>
     </div>
   );
