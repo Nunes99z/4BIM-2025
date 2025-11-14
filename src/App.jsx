@@ -19,6 +19,7 @@ function App() {
   const [poder, setPoder] = useState('');
   const [time, setTime] = useState('');
   const [bíblia, setBíblia] = useState('');
+  const [isUser, setIsUser] = useState('');
 
   const mudarEmail = (e) => {
     setEmail(e.target.value);
@@ -71,32 +72,48 @@ function App() {
   const mudarBíblia = (e) => {
     setBíblia(e.target.value);
   }
+  const coisas = {
+    name: nome,
+    age: idade,
+    phone: telefone,
+    instagram: instagram,
+    github: github,
+    thought: pensamento,
+    problem: problema,
+    lastSeries: serie,
+    lastGame: jogo,
+    music: musica,
+    genre: genero,
+    specialSkill: habilidade,
+    specialPower: poder,
+    favoriteTeam: time,
+    bibleVerse: bíblia,
+    email: email,
+    password: senha
+  }
   const enviarForms = (e) => {
     e.preventDefault()
     fetch('https://api.alanleiser.com/user', {
       method: 'POST',
-      body: JSON.stringify({
-        name: nome,
-        age: idade,
-        phone: telefone,
-        instagram: instagram,
-        github: github,
-        thought: pensamento,
-        problem: problema,
-        lastSeries: serie,
-        lastGame: jogo,
-        music: musica,
-        genre: genero,
-        specialSkill: habilidade,
-        specialPower: poder,
-        favoriteTeam: time,
-        bibleVerse: bíblia,
-        email: email,
-        password: senha
-      })
+      body: JSON.stringify(coisas)
     })
     console.log(`Email: ${email}, Senha: ${senha}`)
   }
+  const getData = (e) => {
+    e.preventDefault()
+    fetch('https://api.alanleiser.com/user')
+      .then((res) => res.json())
+      .then(data=> {
+        setEmail(data.email)          
+      }
+    )
+      .catch((err) =>{
+        if(err.status === 400){
+          statusIsUser(true)
+        }
+      })
+  }
+
   useEffect(() => {
     fetch("https://api.alanleiser.com/")
       .then((res) => res.json())
@@ -104,130 +121,135 @@ function App() {
       .catch((err) => console.error("Erro:", err));
   }, []);
 
+
   return (
     <div className="container">
       <h1>Formulário de Cadastro</h1>
-        <form onSubmit={enviarForms}>
-          <label>Nome</label>
-          <input
-            value={nome}
-            onChange={mudarNome}
-            placeholder="Digite seu nome"
-          />
+      <form onSubmit={enviarForms}>
+        <label>Nome</label>
+        <input
+          value={nome}
+          onChange={mudarNome}
+          placeholder="Digite seu nome"
+        />
 
-          <label>Idade</label>
-          <input
-            value={idade}
-            onChange={mudarIdade}
-            placeholder="Digite sua idade"
-          />
+        <label>Idade</label>
+        <input
+          value={idade}
+          onChange={mudarIdade}
+          placeholder="Digite sua idade"
+        />
 
-          <label>Telefone</label>
-          <input
-            value={telefone}
-            onChange={mudarTelefone}
-            placeholder="Digite seu telefone"
-          />
+        <label>Telefone</label>
+        <input
+          value={telefone}
+          onChange={mudarTelefone}
+          placeholder="Digite seu telefone"
+        />
 
-          <label>Instagram</label>
-          <input
-            value={instagram}
-            onChange={mudarInstagram}
-            placeholder="Digite seu @ do Instagram"
-          />
+        <label>Instagram</label>
+        <input
+          value={instagram}
+          onChange={mudarInstagram}
+          placeholder="Digite seu @ do Instagram"
+        />
 
-          <label>GitHub</label>
-          <input
-            value={github}
-            onChange={mudarGithub}
-            placeholder="Digite seu GitHub"
-          />
+        <label>GitHub</label>
+        <input
+          value={github}
+          onChange={mudarGithub}
+          placeholder="Digite seu GitHub"
+        />
 
-          <label>Pensamento</label>
-          <input
-            value={pensamento}
-            onChange={mudarPensamento}
-            placeholder="Um pensamento seu"
-          />
+        <label>Pensamento</label>
+        <input
+          value={pensamento}
+          onChange={mudarPensamento}
+          placeholder="Um pensamento seu"
+        />
 
-          <label>Problema</label>
-          <input
-            value={problema}
-            onChange={mudarProblema}
-            placeholder="Tem algum probleminha?"
-          />
+        <label>Problema</label>
+        <input
+          value={problema}
+          onChange={mudarProblema}
+          placeholder="Tem algum probleminha?"
+        />
 
-          <label>Última série assistida</label>
-          <input
-            value={serie}
-            onChange={mudarSerie}
-            placeholder="Qual foi a última série?"
-          />
+        <label>Última série assistida</label>
+        <input
+          value={serie}
+          onChange={mudarSerie}
+          placeholder="Qual foi a última série?"
+        />
 
-          <label>Último jogo jogado</label>
-          <input
-            value={jogo}
-            onChange={mudarJogo}
-            placeholder="Qual foi o último jogo?"
-          />
+        <label>Último jogo jogado</label>
+        <input
+          value={jogo}
+          onChange={mudarJogo}
+          placeholder="Qual foi o último jogo?"
+        />
 
-          <label>Música favorita</label>
-          <input
-            value={musica}
-            onChange={mudarMusica}
-            placeholder="Qual música você gosta?"
-          />
+        <label>Música favorita</label>
+        <input
+          value={musica}
+          onChange={mudarMusica}
+          placeholder="Qual música você gosta?"
+        />
 
-          <label>Gênero musical</label>
-          <input
-            value={genero}
-            onChange={mudarGenero}
-            placeholder="Seu gênero musical favorito"
-          />
+        <label>Gênero musical</label>
+        <input
+          value={genero}
+          onChange={mudarGenero}
+          placeholder="Seu gênero musical favorito"
+        />
 
-          <label>Habilidade especial</label>
-          <input
-            value={habilidade}
-            onChange={mudarHabilidade}
-            placeholder="Sua habilidade especial"
-          />
+        <label>Habilidade especial</label>
+        <input
+          value={habilidade}
+          onChange={mudarHabilidade}
+          placeholder="Sua habilidade especial"
+        />
 
-          <label>Poder especial</label>
-          <input
-            value={poder}
-            onChange={mudarPoder}
-            placeholder="Seu poder especial"
-          />
+        <label>Poder especial</label>
+        <input
+          value={poder}
+          onChange={mudarPoder}
+          placeholder="Seu poder especial"
+        />
 
-          <label>Time que torce</label>
-          <input
-            value={time}
-            onChange={mudarTime}
-            placeholder="Qual seu time?"
-          />
-          <label>Versículo da bíblia favorito</label>
-          <input
-            value={bíblia}
-            onChange={mudarBíblia}
-            placeholder="Qual seu versículo favorito?"
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={mudarEmail}
-            placeholder="Digite seu email"
-          />
-          <label>Senha</label>
-          <input
-            type="password"
-            value={senha}
-            onChange={mudarSenha}
-            placeholder="Digite sua senha"
-          />
-          <button type="submit">Enviar informações</button>
-        </form>
-      </div>
+        <label>Time que torce</label>
+        <input
+          value={time}
+          onChange={mudarTime}
+          placeholder="Qual seu time?"
+        />
+        <label>Versículo da bíblia favorito</label>
+        <input
+          value={bíblia}
+          onChange={mudarBíblia}
+          placeholder="Qual seu versículo favorito?"
+        />
+        <label>Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={mudarEmail}
+          placeholder="Digite seu email"
+        />
+        <label>Senha</label>
+        <input
+          type="password"
+          value={senha}
+          onChange={mudarSenha}
+          placeholder="Digite sua senha"
+        />
+        <button type="submit">Enviar informações</button>
+      </form>
+      {
+        !isUser===false?(<>Cadastrar</>):(<>Atualizar</>)
+      }
+      <button onClick={()=>getData()}>Carregar dados</button>
+    </div>
   );
 }
 
