@@ -72,9 +72,12 @@ function App() {
   const mudarBíblia = (e) => {
     setBíblia(e.target.value);
   }
-  const coisas = {
+  
+  const enviarForms = (e) => {
+    e.preventDefault()
+    const coisas = {
     name: nome,
-    age: idade,
+    age: parseInt(idade),
     phone: telefone,
     instagram: instagram,
     github: github,
@@ -91,8 +94,7 @@ function App() {
     email: email,
     password: senha
   }
-  const enviarForms = (e) => {
-    e.preventDefault()
+  console.log(coisas)
     fetch('https://api.alanleiser.com/user', {
       method: 'POST',
       body: JSON.stringify(coisas)
@@ -100,11 +102,24 @@ function App() {
     console.log(`Email: ${email}, Senha: ${senha}`)
   }
   const getData = (e) => {
-    e.preventDefault()
-    fetch('https://api.alanleiser.com/user')
+    fetch(`https://api.alanleiser.com/user/email/${email}/password/${senha}`)
       .then((res) => res.json())
       .then(data=> {
-        setEmail(data.email)          
+        setEmail(data.email)
+        setIdade(data.age)
+        setTelefone(data.phone)
+        setInstagram(data.instagram)
+        setGithub(data.github)
+        setPensamento(data.thought)
+        setProblema(data.problem)
+        setSerie(data.lastSeries)
+        setJogo(data.lastGame)
+        setMusica(data.music)
+        setGenero(data.genre)
+        setHabilidade(data.specialSkill)
+        setPoder(data.specialPower)
+        setTime(data.favoriteTeam)
+        setBíblia(data.bibleVerse)  
       }
     )
       .catch((err) =>{
@@ -135,6 +150,7 @@ function App() {
 
         <label>Idade</label>
         <input
+        type="number"
           value={idade}
           onChange={mudarIdade}
           placeholder="Digite sua idade"
@@ -142,6 +158,7 @@ function App() {
 
         <label>Telefone</label>
         <input
+        
           value={telefone}
           onChange={mudarTelefone}
           placeholder="Digite seu telefone"
@@ -248,7 +265,7 @@ function App() {
       {
         !isUser===false?(<>Cadastrar</>):(<>Atualizar</>)
       }
-      <button onClick={()=>getData()}>Carregar dados</button>
+      <button onClick={()=>getData()}>Pegar dados</button>
     </div>
   );
 }
